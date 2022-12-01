@@ -57,8 +57,8 @@ const Navbar = () => {
               src="/assets/img/logo-zakat.png"
               className="mr-3 h-12 sm:h-14"
               alt="Zakat Logo"
-              width={50}
-              height={50}
+              width={58}
+              height={58}
             />
           </Link>
         </div>
