@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
 
 export default function Form() {
+  const [redirectUrl, setRedirectUrl] = useState('');
   const [nominal, setNominal] = useState(0);
   const [zakatNominal, setZakatNominal] = useState(0);
   const [title, setTitle] = useState('');
@@ -15,9 +16,21 @@ export default function Form() {
     return zakat;
   };
 
-  const handleSubmit = (t) => {
-    t.preventDefault();
-    console.log('submit', title, 'nominal: ', zakatNominal);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const test = await fetch('/api/invoice', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: email,
+        description: name,
+        amount: zakatNominal,
+      }),
+    });
+    const response = await test.json();
+    window.open(response.invoicez.invoice_url, '', 'width=800, height=800');
   };
 
   useEffect(() => {
