@@ -1,9 +1,15 @@
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
+import {
+  faUser,
+  faEnvelope,
+  faPhone,
+  faCheckCircle,
+  faXmarkCircle,
+} from '@fortawesome/free-solid-svg-icons';
 
 export default function Form() {
-  const [redirectUrl, setRedirectUrl] = useState('');
+  const [isPaid, setIsPaid] = useState(false);
   const [nominal, setNominal] = useState(0);
   const [zakatNominal, setZakatNominal] = useState(0);
   const [title, setTitle] = useState('');
@@ -31,6 +37,10 @@ export default function Form() {
     });
     const response = await test.json();
     window.open(response.invoicez.invoice_url, '', 'width=800, height=800');
+    // TODO:
+    // 1. setelah selesai membayar invoice kembali ke halaman ini
+    // 2. update status invoice di blockchain
+    // 3. store invoice zakat ke blockchain
   };
 
   useEffect(() => {
@@ -196,12 +206,40 @@ export default function Form() {
               </div>
             </div>
 
-            <button
-              className="focus:ring-4 focus:ring-gray-600 bg-gray-800 border-gray-700 text-white hover:bg-gray-700 w-[436px] p-2.5 my-4 font-medium rounded-lg text-lg uppercase"
-              onClick={handleSubmit}
-            >
-              Pay
-            </button>
+            <div className="flex flex-col items-center justify-center mt-5">
+              <button
+                className="focus:ring-gray-600 bg-gray-800 border-gray-700 text-white hover:bg-gray-700 w-[436px] p-2.5 my-2 font-medium rounded-lg text-lg uppercase"
+                onClick={handleSubmit}
+              >
+                Pay
+              </button>
+              <div className="flex justify-between items-center">
+                <button
+                  className="focus:ring-gray-600 bg-gray-800 border-gray-700 text-white hover:bg-gray-700 w-80 p-2.5 my-2 font-medium rounded-lg text-lg uppercase mr-20 ml-2"
+                  onClick={() => setIsPaid(!isPaid)}
+                >
+                  Check
+                </button>
+                {isPaid ? (
+                  <FontAwesomeIcon
+                    icon={faCheckCircle}
+                    className="text-green-500 w-10 h-10 mr-2"
+                  />
+                ) : (
+                  <FontAwesomeIcon
+                    icon={faXmarkCircle}
+                    className="text-red-500 w-10 h-10 mr-2"
+                  />
+                )}
+              </div>
+              <button
+                className="focus:ring-gray-600 bg-gray-800 border-gray-700 text-white hover:bg-gray-700 w-[436px] p-2.5 my-2 font-medium rounded-lg text-lg uppercase"
+                onClick={handleSubmit}
+                disabled
+              >
+                Store
+              </button>
+            </div>
           </div>
         </form>
       </div>
