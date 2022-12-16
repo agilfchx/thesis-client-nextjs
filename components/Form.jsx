@@ -215,7 +215,7 @@ export default function Form() {
               </button>
               <div className="flex justify-between items-center">
                 <button
-                  className="focus:ring-gray-600 bg-gray-800 border-gray-700 text-white hover:bg-gray-700 w-80 p-2.5 my-2 font-medium rounded-lg text-lg uppercase mr-20 ml-2"
+                  className="focus:ring-gray-600 bg-gray-800 border-gray-700 text-white hover:bg-gray-700 w-80 p-2.5 my-2 font-medium rounded-lg text-lg uppercase mr-20 ml-3"
                   onClick={() => setIsPaid(!isPaid)}
                 >
                   Check
